@@ -1,3 +1,4 @@
+
 <?php
 $studentName = $studentId = $course = "";
 $grades = ["", "", ""];
@@ -8,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $studentName = trim($_POST["student_name"] ?? "");
   $studentId = trim($_POST["student_id"] ?? "");
   $course = trim($_POST["course"] ?? "");
+
   $rawGrades = [
     $_POST["grade1"] ?? "",
     $_POST["grade2"] ?? "",
@@ -34,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   if (!$errors) {
     $average = array_sum($grades) / count($grades);
+
     $result = [
       "average" => $average,
       "status" => $average >= 75 ? "Passed" : "Failed"
@@ -45,93 +48,137 @@ function e($value) {
   return htmlspecialchars((string)$value, ENT_QUOTES, "UTF-8");
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Student Grade Calculator</title>
+
   <link rel="stylesheet" href="css/style.css">
   <script src="js/app.js" defer></script>
 </head>
+
 <body>
-  <main class="app-shell">
-    <section class="intro">
-      <h1>Student Grade Calculator</h1>
-    </section>
+  <main class="appShell">
+
+    <header class="pageIntro">
+      <h1 class="pageTitle">Student Grade Calculator</h1>
+    </header>
 
     <section class="calculator">
-      <div class="section-heading">
-        <div>
-          <h2>Student details</h2>
-        </div>
-      </div>
+      <header class="calculatorHeader">
+        <h2 class="sectionTitle">Student details</h2>
+      </header>
 
       <?php if ($errors): ?>
-        <div class="alert error" role="alert">
-          <strong>Please check your entries:</strong>
-          <ul>
+        <div class="alert errorAlert" role="alert">
+          <strong class="alertTitle">Please check your entries:</strong>
+
+          <ul class="errorList">
             <?php foreach ($errors as $error): ?>
-              <li><?= e($error) ?></li>
+              <li class="errorItem"><?= e($error) ?></li>
             <?php endforeach; ?>
           </ul>
         </div>
       <?php endif; ?>
 
-      <form method="POST" action="index.php" id="gradeForm">
-        <div class="field-grid">
-          <label class="field field-wide">
-            <span>Student name</span>
-            <input type="text" name="student_name" value="<?= e($studentName) ?>" required>
+      <form class="gradeForm" method="POST" action="index.php" id="gradeForm">
+
+        <div class="studentFields">
+          <label class="formField">
+            <span class="fieldLabel">Student name</span>
+            <input
+              class="formInput"
+              type="text"
+              name="student_name"
+              value="<?= e($studentName) ?>"
+              required
+            >
           </label>
 
-          <label class="field">
-            <span>Student ID</span>
-            <input type="text" name="student_id" value="<?= e($studentId) ?>" required>
+          <label class="formField">
+            <span class="fieldLabel">Student ID</span>
+            <input
+              class="formInput"
+              type="text"
+              name="student_id"
+              value="<?= e($studentId) ?>"
+              required
+            >
           </label>
 
-          <label class="field">
-            <span>Course</span>
-            <input type="text" name="course" value="<?= e($course) ?>" required>
+          <label class="formField">
+            <span class="fieldLabel">Course</span>
+            <input
+              class="formInput"
+              type="text"
+              name="course"
+              value="<?= e($course) ?>"
+              required
+            >
           </label>
         </div>
 
-        <div class="grades-heading">
-          <div>
-            <h3>Grades</h3>
+        <section class="gradesSection">
+          <header class="gradesHeader">
+            <h3 class="sectionTitle">Grades</h3>
+          </header>
+
+          <div class="gradeFields">
+            <?php for ($i = 0; $i < 3; $i++): ?>
+              <label class="formField gradeField">
+                <span class="fieldLabel">Subject <?= $i + 1 ?></span>
+
+                <input
+                  class="formInput gradeInput"
+                  type="number"
+                  name="grade<?= $i + 1 ?>"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="<?= e($grades[$i]) ?>"
+                  required
+                >
+              </label>
+            <?php endfor; ?>
           </div>
+        </section>
+
+        <div class="formActions">
+          <button class="button primaryButton" type="submit">
+            Calculate result
+          </button>
         </div>
 
-        <div class="grade-grid">
-          <?php for ($i = 0; $i < 3; $i++): ?>
-            <label class="field grade-field">
-              <span>Subject <?= $i + 1 ?></span>
-              <div class="grade-input">
-                <input type="number" name="grade<?= $i + 1 ?>" min="0" max="100" step="1" value="<?= e($grades[$i]) ?>" required>
-              </div>
-            </label>
-          <?php endfor; ?>
-        </div>
-
-        <div class="actions">
-          <button type="submit" class="button primary">Calculate result</button>
-        </div>
       </form>
 
       <?php if ($result): ?>
-        <section class="result <?= strtolower($result["status"]) ?>" aria-live="polite">
-          <div class="average-row">
-            <div>
-              <span><?= e($result["status"]) ?></span>
-              <strong><?= number_format($result["average"], 2) ?><small> / 100</small></strong>
+        <section
+          class="resultPanel <?= strtolower($result["status"]) ?>"
+          aria-live="polite"
+        >
+          <div class="averageRow">
+            <div class="averageDetails">
+              <span class="resultStatus">
+                <?= e($result["status"]) ?>
+              </span>
+
+              <strong class="averageValue">
+                <?= number_format($result["average"], 2) ?>
+                <small class="averageScale">/ 100</small>
+              </strong>
             </div>
-            <div class="meter">
-                  
-            </div>
+
+            <div class="resultMeter"></div>
           </div>
         </section>
       <?php endif; ?>
+
     </section>
+
   </main>
 </body>
 </html>

@@ -1,22 +1,15 @@
 
 $color-primary: #5D6F82;
 $color-primary-hover: #2A333D;
-
 $color-accent: #E7EEF5;
-
 $color-text: #E7EEF5;
 $color-muted: #5D6F82;
-
 $color-border: #2A333D;
-
 $color-surface: #171C22;
 $color-background: #0B0D10;
-
 $color-input-background: #E7EEF5;
-
 $color-error-background: #2A333D;
 $color-result-background: #171C22;
-
 $color-shadow: #00000080;
 
 * {
@@ -35,97 +28,112 @@ body {
   background: $color-background;
 }
 
-.app-shell {
+.appShell {
   width: 100%;
   max-width: 560px;
 }
 
-.intro {
+.pageIntro {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   margin-bottom: 24px;
   text-align: center;
+}
 
-  h1 {
-    margin: 0;
-    color: $color-text;
-    font-size: 32px;
-    line-height: 1.2;
-  }
+.pageTitle {
+  margin: 0;
+  color: $color-text;
+  font-size: 32px;
+  line-height: 1.2;
 }
 
 .calculator {
   padding: 28px;
-  background: $color-background;
+  background: $color-surface;
   border: 1px solid $color-border;
   border-radius: 5px;
+  box-shadow: 0 18px 50px $color-shadow;
 }
 
-.section-heading {
-  h2 {
-    margin: 0;
-    font-size: 21px;
-  }
+.calculatorHeader {
+  margin-bottom: 0;
 }
 
-form {
+.sectionTitle {
+  margin: 0;
+  font-size: 21px;
+}
+
+.gradeForm {
   margin-top: 24px;
 }
 
-.field-grid {
+.studentFields {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-.field {
+.formField {
   display: flex;
   flex-direction: column;
   gap: 8px;
   min-width: 0;
+}
 
-  > span {
-    color: $color-muted;
-    font-size: 13px;
-    font-weight: 600;
-  }
+.fieldLabel {
+  color: $color-muted;
+  font-size: 13px;
+  font-weight: 600;
+}
 
-  input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid $color-border;
-    border-radius: 5px;
-    background: $color-input-background;
-    font: inherit;
-    font-size: 14px;
-    outline: none;
+.formInput {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid $color-border;
+  border-radius: 5px;
+  background: $color-input-background;
+  color: $color-background;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
 
-    &:focus {
-      border-color: $color-accent;
-      box-shadow: 0 0 0 3px #ff955f30;
-    }
+  &:focus {
+    border-color: $color-accent;
+    box-shadow: 0 0 0 3px #E7EEF530;
   }
 }
 
-.grades-heading {
-  margin: 28px 0 16px;
+.gradesSection {
+  margin-top: 28px;
+}
 
-  h3 {
-    margin: 0;
+.gradesHeader {
+  margin-bottom: 16px;
+
+  .sectionTitle {
     color: $color-text;
     font-size: 17px;
   }
 }
 
-.grade-grid {
+.gradeFields {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.actions {
+.gradeField {
+  min-width: 0;
+}
+
+.gradeInput {
+  width: 100%;
+}
+
+.formActions {
   display: flex;
   gap: 12px;
   margin-top: 24px;
@@ -140,9 +148,9 @@ form {
   cursor: pointer;
 }
 
-.primary {
+.primaryButton {
   flex: 1;
-  color: $color-surface;
+  color: $color-text;
   background: $color-primary;
   transition: background 0.2s;
 
@@ -158,45 +166,73 @@ form {
   font-size: 13px;
 }
 
-.error {
+.errorAlert {
   color: $color-text;
   background: $color-error-background;
   border: 1px solid $color-border;
-
-  ul {
-    margin-bottom: 0;
-    padding-left: 20px;
-    line-height: 1.7;
-  }
 }
 
-.result {
+.alertTitle {
+  display: block;
+}
+
+.errorList {
+  margin-bottom: 0;
+  padding-left: 20px;
+  line-height: 1.7;
+}
+
+.errorItem {
+  color: $color-text;
+}
+
+.resultPanel {
   margin-top: 24px;
   padding: 20px;
   border: 1px solid $color-border;
   border-radius: 5px;
   background: $color-result-background;
+
+  &.passed {
+    border-color: #5D6F82;
+  }
+
+  &.failed {
+    border-color: #A14B55;
+  }
 }
 
-.average-row {
-  > div:first-child {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    color: $color-muted;
-    font-size: 13px;
-  }
+.averageRow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
-  strong {
-    color: $color-text;
-    font-size: 25px;
-  }
+.averageDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: $color-muted;
+  font-size: 13px;
+}
 
-  small {
-    font-size: 12px;
-    font-weight: 400;
-  }
+.resultStatus {
+  color: $color-text;
+}
+
+.averageValue {
+  color: $color-text;
+  font-size: 25px;
+}
+
+.averageScale {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.resultMeter {
+  width: 100%;
 }
 
 @media (max-width: 520px) {
@@ -204,17 +240,15 @@ form {
     padding: 16px;
   }
 
-  .intro {
-    h1 {
-      font-size: 28px;
-    }
+  .pageTitle {
+    font-size: 28px;
   }
 
   .calculator {
     padding: 20px;
   }
 
-  .actions {
+  .formActions {
     flex-direction: column-reverse;
   }
 

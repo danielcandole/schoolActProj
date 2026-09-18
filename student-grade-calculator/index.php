@@ -18,18 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   if ($studentName === "") $errors[] = "Student name is required.";
   if ($studentId === "") $errors[] = "Student ID is required.";
-  if ($course === "") $errors[] = "Course / section is required.";
+  if ($course === "") $errors[] = "Course is required.";
 
   foreach ($rawGrades as $i => $grade) {
-    if (
-      $grade === "" ||
-      !is_numeric($grade) ||
-      !filter_var($grade, FILTER_VALIDATE_INT) && (string)(int)$grade !== (string)$grade ||
-      $grade < 0 ||
-      $grade > 100
-    ) {
+    if ($grade === "" ||!is_numeric($grade) ||!filter_var($grade, FILTER_VALIDATE_INT) && (string)(int)$grade !== (string)$grade ||$grade < 0 ||$grade > 100) {
       $errors[] = "Grade " . ($i + 1) . " must be a whole number from 0 to 100.";
-    } else {
+    }
+    else {
       $grades[$i] = (int)$grade;
     }
   }
@@ -149,7 +144,7 @@ function e($value) {
 
         <div class="formActions">
           <button class="button primaryButton" type="submit">
-            Calculate result
+            Calculate Result
           </button>
         </div>
 

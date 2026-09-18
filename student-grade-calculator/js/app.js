@@ -3,32 +3,48 @@ const gradeInputs = [...document.querySelectorAll('input[type="number"]')];
 const averageOutput = document.querySelector("#liveAverage");
 
 function updateAverage() {
-    const values = gradeInputs.map((input) => input.value.trim());
-    const allFilled = values.every((value) => value !== "");
-    const valid = values.every((value) => Number.isFinite(Number(value)) && Number(value) >= 0 && Number(value) <= 100);
+  let total = 0;
 
-    if (!allFilled || !valid) {
-        averageOutput.innerHTML = '—<small> / 100</small>';
-        return;
+  for (let i = 0; i < gradeInputs.length; i++) {
+    const value = gradeInputs[i].value.trim();
+
+    if (value === "" || value < 0 || value > 100) {
+      averageOutput.innerHTML = '<small> / 100</small>';
+      return;
     }
 
-    const average = values.reduce((sum, value) => sum + Number(value), 0) / values.length;
-    averageOutput.innerHTML = `${average.toFixed(2)}<small> / 100</small>`;
+    total += Number(value);
+  }
+
+  const average = total / gradeInputs.length;
+  averageOutput.innerHTML = `${average.toFixed(2)}<small> / 100</small>`;
 }
 
-gradeInputs.forEach((input) => input.addEventListener("input", updateAverage));
+function handleReset() {
+  setTimeout(updateAverage, 0);
+}
 
-form?.addEventListener("reset", () => {
-    window.setTimeout(updateAverage, 0);
-});
+function handleSubmit(event) {
+  for (let i = 0; i < gradeInputs.length; i++) {
+    const input = gradeInputs[i];
+    const value = input.value;
 
-form?.addEventListener("submit", (event) => {
-    const invalidGrade = gradeInputs.find((input) => input.value === "" || Number(input.value) < 0 || Number(input.value) > 100);
-    if (invalidGrade) {
-        event.preventDefault();
-        invalidGrade.focus();
-        invalidGrade.reportValidity();
+    if (value === "" || Number(value) < 0 || Number(value) > 100) {
+      event.preventDefault();
+      input.focus();
+      input.reportValidity();
+      return;
     }
-});
+  }
+}
+
+for (let i = 0; i < gradeInputs.length; i++) {
+  gradeInputs[i].addEventListener("input", updateAverage);
+}
+
+if (form) {
+  form.addEventListener("reset", handleReset);
+  form.addEventListener("submit", handleSubmit);
+}
 
 updateAverage();

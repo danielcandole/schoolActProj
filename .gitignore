@@ -1,0 +1,5 @@
+# Ignore Sass cache directories anywhere
+**/.sass-cache/
+
+# Ignore Git metadata directories anywhere
+**/.git/

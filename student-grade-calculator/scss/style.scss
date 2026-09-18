@@ -1,0 +1,224 @@
+
+$color-primary: #5D6F82;
+$color-primary-hover: #2A333D;
+
+$color-accent: #E7EEF5;
+
+$color-text: #E7EEF5;
+$color-muted: #5D6F82;
+
+$color-border: #2A333D;
+
+$color-surface: #171C22;
+$color-background: #0B0D10;
+
+$color-input-background: #E7EEF5;
+
+$color-error-background: #2A333D;
+$color-result-background: #171C22;
+
+$color-shadow: #00000080;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+  color: $color-text;
+  background: $color-background;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: 560px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 24px;
+  text-align: center;
+
+  h1 {
+    margin: 0;
+    color: $color-text;
+    font-size: 32px;
+    line-height: 1.2;
+  }
+}
+
+.calculator {
+  padding: 28px;
+  background: $color-background;
+  border: 1px solid $color-border;
+  border-radius: 5px;
+}
+
+.section-heading {
+  h2 {
+    margin: 0;
+    font-size: 21px;
+  }
+}
+
+form {
+  margin-top: 24px;
+}
+
+.field-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+
+  > span {
+    color: $color-muted;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid $color-border;
+    border-radius: 5px;
+    background: $color-input-background;
+    font: inherit;
+    font-size: 14px;
+    outline: none;
+
+    &:focus {
+      border-color: $color-accent;
+      box-shadow: 0 0 0 3px #ff955f30;
+    }
+  }
+}
+
+.grades-heading {
+  margin: 28px 0 16px;
+
+  h3 {
+    margin: 0;
+    color: $color-text;
+    font-size: 17px;
+  }
+}
+
+.grade-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary {
+  flex: 1;
+  color: $color-surface;
+  background: $color-primary;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $color-primary-hover;
+  }
+}
+
+.alert {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.error {
+  color: $color-text;
+  background: $color-error-background;
+  border: 1px solid $color-border;
+
+  ul {
+    margin-bottom: 0;
+    padding-left: 20px;
+    line-height: 1.7;
+  }
+}
+
+.result {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid $color-border;
+  border-radius: 5px;
+  background: $color-result-background;
+}
+
+.average-row {
+  > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    color: $color-muted;
+    font-size: 13px;
+  }
+
+  strong {
+    color: $color-text;
+    font-size: 25px;
+  }
+
+  small {
+    font-size: 12px;
+    font-weight: 400;
+  }
+}
+
+@media (max-width: 520px) {
+  body {
+    padding: 16px;
+  }
+
+  .intro {
+    h1 {
+      font-size: 28px;
+    }
+  }
+
+  .calculator {
+    padding: 20px;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .button {
+    width: 100%;
+  }
+}

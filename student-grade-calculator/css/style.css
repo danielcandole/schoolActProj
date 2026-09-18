@@ -153,8 +153,7 @@ body {
 
 .averageRow {
   display: flex;
-  flex-direction: column;
-  gap: 12px; }
+  flex-direction: column; }
 
 .averageDetails {
   display: flex;
